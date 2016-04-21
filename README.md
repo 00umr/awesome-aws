@@ -156,7 +156,7 @@ Also check out the [Watch List](https://github.com/donnemartin/awesome-aws/issue
 
 ### C++ SDK
 
-* [Repo :fire::fire::fire::fire:](https://github.com/awslabs/aws-sdk-cpp)
+* [Repo :fire::fire:](https://github.com/aws/aws-sdk-cpp)
 * [Blog with Samples](https://aws.amazon.com/blogs/aws/introducing-the-aws-sdk-for-c/)
 
 *The C++ SDK is a labs project with limited docs and/or samples.*
@@ -258,10 +258,10 @@ Related Repos:
 
 ### Python SDK
 
-* [Repo :fire::fire::fire::fire::fire:](https://github.com/boto/boto3)
-* [Repo with Samples :fire:](https://github.com/awslabs/aws-python-sample)
-* [Install](http://github.com/boto/boto#installation)
-* [Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
+* [Repo :fire::fire::fire::fire::fire:](https://github.com/boto/boto)
+* [Repo with Samples](https://github.com/awslabs/aws-python-sample)
+* [Install](https://github.com/boto/boto#installation)
+* [Docs](http://docs.pythonboto.org/en/latest/)
 * [Learn More](http://github.com/boto/boto/blob/develop/README.rst#boto)
 
 Related Repos:
@@ -1087,7 +1087,9 @@ Community Guides:
 
 AWS Guides:
 
-* [Analyzing Big Data](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-gs.html)
+* [Analyzing Big Data](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-gs.html)
+    * [Sentiment Analysis](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-gs.html)
+    * [Web Server Log Analysis](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-gs.html)
 * [Working with the AWS Management Console](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html)
 * [Deploying a Web App Using Elastic Beanstalk](http://docs.aws.amazon.com/gettingstarted/latest/deploy/overview.html)
 * [Hosting a Web App](http://docs.aws.amazon.com/gettingstarted/latest/wah-linux/web-app-hosting-intro.html)
@@ -1187,9 +1189,9 @@ AWS Blogs:
     * [Germany](https://aws.amazon.com/de/blogs/germany/)
     * [Japan](https://aws.amazon.com/jp/blogs/news/)
     * [Korea](http://aws.amazon.com/ko/blogs/korea/)
-* [DevOps](https://aws.amazon.com/blogs/devops/)
-* [Architecture](https://aws.amazon.com/blogs/architecture/)
-* [Big Data](https://aws.amazon.com/blogs/big-data/)
+* [Application Management](http://blogs.aws.amazon.com/application-management)
+* [Architecture](https://www.awsarchitectureblog.com/)
+* [Big Data](https://blogs.aws.amazon.com/bigdata/)
 * [Compute](https://aws.amazon.com/blogs/compute/)
 * [Mobile](https://aws.amazon.com/blogs/mobile/)
 * [Messaging](https://aws.amazon.com/blogs/messaging-and-targeting/)
