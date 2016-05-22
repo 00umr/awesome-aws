@@ -624,11 +624,9 @@ Community Repos:
 
 * [alestic/ec2-consistent-snapshot :fire::fire:](https://github.com/alestic/ec2-consistent-snapshot) - Initiate consistent EBS snapshots in EC2.
 * [ConradIrwin/aws-name-server :fire::fire::fire:](https://github.com/ConradIrwin/aws-name-server) - DNS server that lets you look up instances by name.
-* [cristim/autospotting :fire::fire::fire::fire::fire:](https://github.com/autospotting/autospotting) - Automatically rolling-replace on-demand EC2 instances in AutoScaling groups with compatible spot instances.
-* [evannuil/aws-snapshot-tool :fire::fire:](https://github.com/evannuil/aws-snapshot-tool) - Automates EBS snapshots and rotation.
-* [kelseyhightower/kubernetes-the-hard-way :fire::fire::fire::fire::fire:](https://github.com/kelseyhightower/kubernetes-the-hard-way) - Bootstrap Kubernetes the hard way on EC2. No scripts.
-* [mirakui/ec2ssh :fire::fire:](https://github.com/mirakui/ec2ssh) - SSH config manager.
-* [openebs/openebs :fire::fire::fire::fire::fire:](https://github.com/openebs/openebs) - Containerized block storage QoS SLAs, tiering and replica policies across AZs and environments, and predictable and scalable performance.
+* [evannuil/aws-snapshot-tool :fire:](https://github.com/evannuil/aws-snapshot-tool) - Automates EBS snapshots and rotation.
+* [mirakui/ec2ssh :fire:](https://github.com/mirakui/ec2ssh) - SSH config manager.
+* [pmazurek/aws-fuzzy-finder](https://github.com/pmazurek/aws-fuzzy-finder) - SSH into instances using fuzzy search through instances names.
 * [skavanagh/EC2Box :fire::fire:](https://github.com/skavanagh/EC2Box) - A web-based SSH console to manage multiple instances simultaneously.
 * [wbailey/claws :fire:](https://github.com/wbailey/claws) - CLI-driven console with capistrano integration.
 
