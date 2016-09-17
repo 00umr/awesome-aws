@@ -571,11 +571,10 @@ AWS Repos:
 
 Community Repos:
 
-* [channl/dynamodb-lambda-autoscale :fire::fire:](https://github.com/channl/dynamodb-lambda-autoscale) - Autoscale DynamoDB provisioned capacity using Lambda.
-* [dynamoose/dynamoose :fire::fire::fire::fire:](https://github.com/dynamoose/dynamoose) - A Mongoose-inspired modeling tool for DynamoDB.
-* [lyft/confidant :fire::fire::fire::fire:](https://github.com/lyft/confidant) - Stores secrets, encrypted at rest.
-* [sebdah/dynamic-dynamodb :fire::fire::fire:](https://github.com/sebdah/dynamic-dynamodb) - Provides auto-scaling.
-* [sensedeep/dynamodb-onetable :fire::fire::fire:](https://github.com/sensedeep/dynamodb-onetable) - DynamoDB library for single table designs using NodeJS.
+* [channl/dynamodb-lambda-autoscale :fire:](https://github.com/channl/dynamodb-lambda-autoscale) - Autoscale DynamoDB provisioned capacity using Lambda.
+* [lyft/confidant :fire::fire::fire:](https://github.com/lyft/confidant) - Stores secrets, encrypted at rest.
+* [mifi/dynamodump](https://github.com/mifi/dynamodump) - Export and import DynamoDB table schema and data.
+* [sebdah/dynamic-dynamodb :fire::fire:](https://github.com/sebdah/dynamic-dynamodb) - Provides auto-scaling.
 
 ### Elastic Beanstalk
 
