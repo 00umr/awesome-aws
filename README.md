@@ -432,7 +432,7 @@ Community Repos:
 * [wallix/awless :fire::fire::fire::fire::fire:](https://github.com/wallix/awless) - a Powerful CLI for EC2, IAM and S3 in Go.
 * [Noovolari/leapp :fire::fire::fire:](https://github.com/Noovolari/leapp) - Cross-platform App for securing AWS Credentials, based on Electron.
 * [99designs/aws-vault :fire::fire::fire::fire::fire:](https://github.com/99designs/aws-vault) - A tool for securely storing AWS credentials, written in Go.
-* [aramalipoor/aws-cost-saver :fire:](https://github.com/aramalipoor/aws-cost-saver) - Save costs in development environments when you're asleep.
+* [rocketsam](https://github.com/nadav96/rocketsam) - A CLI made to build and deploy microservices.
 
 ### CloudFormation
 
