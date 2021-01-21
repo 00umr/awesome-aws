@@ -951,7 +951,7 @@ Community Repos:
 * [bridgecrewio/checkov :fire::fire::fire::fire::fire:](https://github.com/bridgecrewio/checkov) - Terraform static analysis, verifies security best practices.
 * [ccbrown/cloud-snitch :fire::fire:](https://github.com/ccbrown/cloud-snitch) - Map visualization and firewall for AWS activity.
 * [cloudsploit/scans :fire::fire::fire::fire:](https://github.com/cloudsploit/scans) - Detects security risks.
-* [iSECPartners/Scout2 :fire::fire::fire::fire:](https://github.com/iSECPartners/Scout2) - Security auditing tool.
+* [nccgroup/ScoutSuite :fire::fire::fire::fire:](https://github.com/nccgroup/ScoutSuite) - Security auditing tool.
 * [jordanpotti/AWSBucketDump :fire::fire::fire::fire:](https://github.com/jordanpotti/AWSBucketDump) - Security Tool to Look For Interesting Files in S3 Buckets.
 * [Netflix/bless :fire::fire::fire::fire::fire:](https://github.com/Netflix/bless) - SSH Certificate Authority that runs as a Lambda function.
 * [Netflix/security_monkey :fire::fire::fire::fire::fire:](https://github.com/Netflix/security_monkey) - Monitors policy changes and alerts on insecure configurations.
