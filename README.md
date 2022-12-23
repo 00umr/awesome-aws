@@ -750,6 +750,7 @@ Community Repos:
 * [jorgebastida/gordon :fire::fire::fire::fire::fire:](https://github.com/jorgebastida/gordon) - λ Gordon is a tool to create, wire and deploy AWS Lambdas using CloudFormation.
 * [ks888/LambStatus :fire::fire::fire::fire:](https://github.com/ks888/LambStatus) - A status page system inspired by StatusPage.io, built on AWS Lambda.
 * [kubek2k/lambdoku :fire::fire::fire:](https://github.com/kubek2k/lambdoku) - Heroku-like experience when using Lambda.
+* [laconiajs/laconia :fire::fire:](https://github.com/laconiajs/laconia) - Create well-crafted serverless applications, effortlessly.
 * [lambci/lambci :fire::fire::fire::fire::fire:](https://github.com/lambci/lambci) - A continuous integration system built on Lambda.
 * [littlstar/s3-lambda :fire::fire::fire::fire:](https://github.com/littlstar/s3-lambda) - Lambda functions over S3 objects with concurrency control (each, map, reduce, filter).
 * [middyjs/middy :fire::fire::fire::fire::fire:](https://github.com/middyjs/middy) - Nodejs Lambda middlware framwork to make AWS event easy to work with.
