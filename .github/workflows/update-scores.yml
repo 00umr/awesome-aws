@@ -1,0 +1,39 @@
+name: Update Repository Scores
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-scores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pygithub
+
+      - name: Update scores
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: python scripts/update_scores.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: "Update repository star scores"
+          title: "Update repository star scores"
+          body: |
+            Automated weekly update of repository star scores.
+
+            This PR updates the :fire: ratings based on current GitHub star counts.
+          branch: update-scores
+          delete-branch: true
