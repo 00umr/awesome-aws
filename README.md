@@ -10,6 +10,8 @@ A curated list of awesome AWS libraries, open source repos, guides, blogs, and o
 
 Inspired by the [awesome](https://github.com/sindresorhus/awesome) list.
 
+> **Note:** This is a community-maintained fork of [donnemartin/awesome-aws](https://github.com/donnemartin/awesome-aws), which has been inactive since May 2023. This fork exists to keep the list accurate, reviewed, and actively maintained.
+
 ## The Fiery Meter of AWSome
 
 * Repo with 0100+ Stars: :fire:
