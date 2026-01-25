@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# coding: utf-8
+
+# Based on https://github.com/donnemartin/awesome-aws/blob/master/awesome/awesome.py
+# Copyright 2015 Donne Martin. All Rights Reserved.
+#
+# Creative Commons Attribution 4.0 International License (CC BY 4.0)
+# http://creativecommons.org/licenses/by/4.0/
 
 """
 Standalone script to update repository star scores in README.md.
