@@ -33,5 +33,5 @@ jobs:
             This PR updates:
             - :fire: ratings based on current GitHub star counts
             - :hourglass: / :zzz: freshness indicators based on last commit date
-          branch: update-scores
+          branch: update-scores-${{ github.run_id }}
           delete-branch: true
