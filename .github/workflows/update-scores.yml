@@ -11,19 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          pip install pygithub
+          enable-cache: true
 
       - name: Update scores
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: python scripts/update_scores.py
+        run: uv run scripts/update_scores.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -32,8 +28,10 @@ jobs:
           commit-message: "Update repository star scores"
           title: "Update repository star scores"
           body: |
-            Automated weekly update of repository star scores.
+            Automated weekly update of repository scores.
 
-            This PR updates the :fire: ratings based on current GitHub star counts.
+            This PR updates:
+            - :fire: ratings based on current GitHub star counts
+            - :hourglass: / :zzz: freshness indicators based on last commit date
           branch: update-scores
           delete-branch: true
