@@ -1,25 +1,42 @@
-#!/usr/bin/env python3
-# coding: utf-8
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "httpx>=0.27.0",
+#     "rich>=13.7.0",
+# ]
+# ///
 
-# Based on https://github.com/donnemartin/awesome-aws/blob/master/awesome/awesome.py
-# Copyright 2015 Donne Martin. All Rights Reserved.
-#
+# Originally based on https://github.com/donnemartin/awesome-aws/blob/master/awesome/awesome.py
+# Original work Copyright 2015 Donne Martin
 # Creative Commons Attribution 4.0 International License (CC BY 4.0)
 # http://creativecommons.org/licenses/by/4.0/
+#
+# Substantially rewritten to use async/httpx for parallel GitHub API requests.
 
 """
-Standalone script to update repository star scores in README.md.
+Update repository star scores and freshness indicators in README.md.
 
-Uses PyGithub with GITHUB_TOKEN environment variable for authentication.
-Designed to run in GitHub Actions CI environment.
+Usage:
+    GITHUB_TOKEN=xxx uv run scripts/update_scores.py
 """
 
+import asyncio
 import os
 import re
 import sys
-from github import Github, Auth
-from github.GithubException import UnknownObjectException, RateLimitExceededException
+from dataclasses import dataclass
+from datetime import datetime, timezone
 
+import httpx
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
+
+
+GITHUB_API_BASE = "https://api.github.com"
+DEFAULT_TIMEOUT = 10.0
+MAX_CONCURRENT = 10
+DEFAULT_README_PATH = "README.md"
 
 # Repos to exclude from scoring
 REPOS_EXCLUDE_SCORE = [
@@ -32,13 +49,13 @@ REPOS_EXCLUDE_SCORE = [
 ]
 
 
-def get_github_client():
-    """Initialize GitHub client with token from environment."""
-    token = os.environ.get('GITHUB_TOKEN')
-    if not token:
-        print("Error: GITHUB_TOKEN environment variable not set")
-        sys.exit(1)
-    return Github(auth=Auth.Token(token))
+@dataclass
+class RepoResult:
+    line_idx: int
+    url: str
+    stars: int | None = None
+    pushed_at: datetime | None = None
+    error: str | None = None
 
 
 def extract_repo_params(url):
@@ -65,6 +82,22 @@ def score_repo(stars):
         return 5
 
 
+def score_freshness(last_pushed):
+    """Assign freshness indicator based on last activity date."""
+    if last_pushed is None:
+        return ""
+
+    now = datetime.now(timezone.utc)
+    days_stale = (now - last_pushed.replace(tzinfo=timezone.utc)).days
+
+    if days_stale > 365 * 3:
+        return " :zzz:"
+    elif days_stale > 365 * 2:
+        return " :hourglass:"
+    else:
+        return ""
+
+
 def update_repo_score(line, stars):
     """Update the repo's markdown with its new score."""
     cached_score = line.count(':fire:')
@@ -81,84 +114,157 @@ def update_repo_score(line, stars):
     return line
 
 
-def process_readme(github_client, readme_path):
-    """Process README and update star scores."""
-    output = []
-    repos_broken = []
+def update_repo_freshness(line, last_pushed):
+    """Update/add freshness indicator to repo line."""
+    freshness = score_freshness(last_pushed)
 
-    with open(readme_path, 'r') as f:
-        lines = f.readlines()
+    line = line.replace(' :zzz:', '').replace(' :hourglass:', '')
 
-    for line in lines:
-        line = line.rstrip('\n')
-        match = re.search(r'(https://github.com/[^)]*)', line)
+    if freshness:
+        # Add freshness indicator after fires, before closing bracket
+        # Pattern: [repo-name :fire::fire:](url) -> [repo-name :fire::fire: :zzz:](url)
+        line = re.sub(r'(\])\(', f'{freshness}](', line, count=1)
 
-        # If not processing a repo, just output the line
-        if match is None:
-            output.append(line)
-            continue
+    return line
 
-        url = match.group(0)
 
-        # If the repo is in the exclude list, just output the line
-        if any(substr in url for substr in REPOS_EXCLUDE_SCORE):
-            output.append(line)
-            continue
-
-        user_login, repo_name = extract_repo_params(url)
-        if not user_login or not repo_name:
-            output.append(line)
-            continue
-
+async def fetch_repo_info(
+    client: httpx.AsyncClient,
+    owner: str,
+    repo: str,
+    url: str,
+    line_idx: int,
+    headers: dict,
+    semaphore: asyncio.Semaphore,
+) -> RepoResult:
+    """Fetch repo stars and pushed_at from GitHub API."""
+    async with semaphore:
         try:
-            repo = github_client.get_repo(f"{user_login}/{repo_name}")
-            stars = repo.stargazers_count
-            line = update_repo_score(line, stars)
-            output.append(line)
-        except UnknownObjectException:
-            repos_broken.append(url)
-            output.append(line)
-        except RateLimitExceededException:
-            print("Error: GitHub API rate limit exceeded")
-            sys.exit(1)
+            api_url = f"{GITHUB_API_BASE}/repos/{owner}/{repo}"
+            response = await client.get(api_url, headers=headers)
+
+            if response.status_code == 404:
+                return RepoResult(line_idx=line_idx, url=url, error="Not found")
+            if response.status_code == 403:
+                if "rate limit" in response.text.lower():
+                    return RepoResult(line_idx=line_idx, url=url, error="Rate limited")
+                return RepoResult(line_idx=line_idx, url=url, error="Forbidden")
+            if response.status_code != 200:
+                return RepoResult(line_idx=line_idx, url=url, error=f"HTTP {response.status_code}")
+
+            data = response.json()
+            pushed_at = None
+            if data.get("pushed_at"):
+                pushed_at = datetime.fromisoformat(data["pushed_at"].replace("Z", "+00:00"))
+
+            return RepoResult(
+                line_idx=line_idx,
+                url=url,
+                stars=data["stargazers_count"],
+                pushed_at=pushed_at,
+            )
+        except httpx.TimeoutException:
+            return RepoResult(line_idx=line_idx, url=url, error="Timeout")
         except Exception as e:
-            print(f"Warning: Error fetching {url}: {e}")
-            output.append(line)
-
-    return output, repos_broken
+            return RepoResult(line_idx=line_idx, url=url, error=str(e)[:50])
 
 
-def write_output(output, readme_path):
-    """Write the updated content back to README."""
-    with open(readme_path, 'w') as f:
-        for line in output:
-            f.write(line + '\n')
+async def fetch_all_repos(
+    repos_to_fetch: list[tuple[int, str, str, str]],
+    github_token: str | None,
+    console: Console,
+) -> list[RepoResult]:
+    """Fetch all repos concurrently."""
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT)
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "User-Agent": "awesome-aws-score-updater/1.0",
+    }
+    if github_token:
+        headers["Authorization"] = f"Bearer {github_token}"
+
+    results = []
+    async with httpx.AsyncClient(timeout=httpx.Timeout(DEFAULT_TIMEOUT)) as client:
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            console=console,
+        ) as progress:
+            task = progress.add_task("[green]Fetching repos...", total=len(repos_to_fetch))
+
+            tasks = [
+                fetch_repo_info(client, owner, repo, url, idx, headers, semaphore)
+                for idx, owner, repo, url in repos_to_fetch
+            ]
+
+            for coro in asyncio.as_completed(tasks):
+                result = await coro
+                results.append(result)
+                progress.update(task, advance=1)
+
+    return results
 
 
-def main():
-    readme_path = 'README.md'
+async def main():
+    console = Console()
 
-    if not os.path.exists(readme_path):
-        print(f"Error: {readme_path} not found")
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if github_token:
+        console.print("[green]Using GitHub token (5000 requests/hour)[/green]")
+    else:
+        console.print("[yellow]No GITHUB_TOKEN - using unauthenticated API (60 requests/hour)[/yellow]")
+
+    if not os.path.exists(DEFAULT_README_PATH):
+        console.print(f"[red]Error: {DEFAULT_README_PATH} not found[/red]")
         sys.exit(1)
 
-    print("Initializing GitHub client...")
-    github_client = get_github_client()
+    with open(DEFAULT_README_PATH, 'r') as f:
+        lines = [line.rstrip('\n') for line in f.readlines()]
 
-    print(f"Processing {readme_path}...")
-    output, repos_broken = process_readme(github_client, readme_path)
+    repos_to_fetch = []
+    for idx, line in enumerate(lines):
+        match = re.search(r'(https://github.com/[^)]*)', line)
+        if not match:
+            continue
+        url = match.group(0)
+        if any(substr in url for substr in REPOS_EXCLUDE_SCORE):
+            continue
+        user_login, repo_name = extract_repo_params(url)
+        if user_login and repo_name:
+            repos_to_fetch.append((idx, user_login, repo_name, url))
 
-    write_output(output, readme_path)
+    console.print(f"Found [bold]{len(repos_to_fetch)}[/bold] repos to update")
+
+    results = await fetch_all_repos(repos_to_fetch, github_token, console)
+
+    results_by_idx = {r.line_idx: r for r in results}
+    repos_broken = []
+
+    for idx, line in enumerate(lines):
+        if idx in results_by_idx:
+            r = results_by_idx[idx]
+            if r.error == "Rate limited":
+                console.print("[red]Error: GitHub API rate limit exceeded[/red]")
+                sys.exit(1)
+            elif r.error:
+                repos_broken.append(r.url)
+            else:
+                lines[idx] = update_repo_score(line, r.stars)
+                lines[idx] = update_repo_freshness(lines[idx], r.pushed_at)
+
+    with open(DEFAULT_README_PATH, 'w') as f:
+        for line in lines:
+            f.write(line + '\n')
 
     if repos_broken:
-        print("Broken repos found:")
-        for repo in repos_broken:
-            print(f"  {repo}")
+        console.print("[yellow]Broken repos:[/yellow]")
+        for url in repos_broken:
+            console.print(f"  {url}")
 
-    rate_limit = github_client.get_rate_limit().rate
-    print(f"Rate limit remaining: {rate_limit.remaining}")
-    print(f"Updated {readme_path}")
+    console.print(f"[green]Updated {DEFAULT_README_PATH}[/green]")
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    asyncio.run(main())
