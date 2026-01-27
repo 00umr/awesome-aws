@@ -1052,6 +1052,7 @@ Community Repos:
 * [devops-israel/aws-inventory :fire::fire: :zzz:](https://github.com/devops-israel/aws-inventory) - Display all your AWS resources on a single web page.
 * [donnemartin/dev-setup :fire::fire::fire::fire:](https://github.com/donnemartin/dev-setup) - Mac setup of various developer tools and AWS services.
 * [dtan4/terraforming :fire::fire::fire::fire::fire: :zzz:](https://github.com/dtan4/terraforming) - Export existing resources to Terraform style (tf, tfstate).
+* [elC0mpa/aws-doctor](https://github.com/elC0mpa/aws-doctor) - CLI tool for AWS account health checks, cost analysis, and detecting unused resources.
 * [segmentio/stack :fire::fire::fire::fire::fire: :hourglass:](https://github.com/segmentio/stack) - A set of Terraform modules for configuring production infrastructure.
 * [GoogleCloudPlatform/terraformer :fire::fire::fire::fire::fire:](https://github.com/GoogleCloudPlatform/terraformer#use-with-aws) - A tool that generates tf/json and tfstate files based on existing infrastructure (reverse Terraform). (Originally from Waze SRE team, but mostly cloud-agnostic)
 * [j2labs/microarmy  :zzz:](https://github.com/j2labs/microarmy) - Deploy micro instances to launch a coordinated siege.
