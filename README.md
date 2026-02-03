@@ -799,6 +799,7 @@ Community Repos:
 
 AWS Repos:
 
+* [deep-learning-containers](https://github.com/aws/deep-learning-containers) - Deep Learning Containers for training and inference with machine learning frameworks.
 * [machine-learning-samples :fire::fire::fire:](https://github.com/awslabs/machine-learning-samples) - Sample apps.
 
 Community Repos:
