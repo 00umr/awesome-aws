@@ -370,7 +370,8 @@ Related Repos:
 * [awslabs/aws-shell :fire::fire::fire::fire::fire:](https://github.com/awslabs/aws-shell)
 * [donnemartin/saws :fire::fire::fire::fire::fire:](https://github.com/donnemartin/saws)
 * [DrSkyle/CloudSlash ](https://github.com/DrSkyle/CloudSlash)
-  
+* [aws-amplify/amplify-cli :fire::fire::fire::fire::fire:](https://github.com/aws-amplify/amplify-cli)  
+
 ### Windows PowerShell
 
 * [Install](http://sdk-for-net.amazonwebservices.com/latest/AWSToolsAndSDKForNet.msi)
